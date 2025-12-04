@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WigellKoncernen</title>
     <link rel="stylesheet" href="stylesheet.css">
+    <style>
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
 <header>
@@ -12,26 +15,62 @@
     <p>Lyxa bilar till låga priser!</p>
 </header>
 
-
 <div class="flex-container">
     <div class="nav">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="#" id="nav-home">Home</a></li>
             <li><a href="#">News</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">About</a></li>
         </ul>
     </div>
 
-    <div>
-        <h2>Dynamiskt innehåll</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+    <div id="dynamic-content-container">
+
+        <section id="login-view">
+            <h2>Logga in</h2>
+            <p>Vänligen logga in för att boka eller hantera bilar.</p>
+            <div style="display: flex; flex-direction: column; max-width: 300px; gap: 10px;">
+                <input type="text" id="username" placeholder="Användarnamn">
+                <input type="password" id="password" placeholder="Lösenord">
+                <button id="login-btn">Logga in</button>
+            </div>
+            <p id="error-msg" style="color:red;"></p>
+        </section>
+
+        <section id="car-view" class="hidden">
+            <h2>Tillgängliga Bilar</h2>
+            <div id="sorting-controls" style="margin-bottom: 15px;">
+                <label>Sortera på:</label>
+                <button id="sort-name">Namn</button>
+                <button id="sort-type">Typ</button>
+            </div>
+            <div id="car-list"></div>
+        </section>
+
+        <section id="admin-view" class="hidden">
+            <h2>Admin Dashboard</h2>
+            <p>Hantera fordonsparken.</p>
+            <table id="admin-table" border="1" style="width:100%; border-collapse: collapse;">
+                <thead>
+                <tr>
+                    <th id="header-brand" style="cursor:pointer">Märke/Modell ↕</th>
+                    <th id="header-type" style="cursor:pointer">Typ ↕</th>
+                    <th id="header-price">Pris</th>
+                    <th>Åtgärd</th>
+                </tr>
+                </thead>
+                <tbody id="admin-tbody"></tbody>
+            </table>
+        </section>
+
     </div>
 
     <div>
-        <h2>Reklamplats</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique.</p>
+        <h2>Reklamplats</h2> <p>Här kan du lägga in bilder på bilar eller banners.</p>
+        <div style="background-color: #ddd; height: 150px; display: flex; align-items: center; justify-content: center;">
+            [Bildutrymme]
+        </div>
     </div>
 </div>
 
