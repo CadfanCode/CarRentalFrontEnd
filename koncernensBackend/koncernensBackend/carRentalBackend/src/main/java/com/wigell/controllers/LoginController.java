@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = {"http://127.0.0.1:5500"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:63342", "http://127.0.0.1:63342"}, allowCredentials = "true")
 public class LoginController {
 
     private final PasswordEncoder passwordEncoder;
