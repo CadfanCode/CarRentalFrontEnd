@@ -48,6 +48,13 @@ header {
 #dynamic-content-container {
     flex: 1; /* takes remaining space */
 }
+ .car-row-interactive {
+            cursor: pointer;
+        }
+        .car-row-interactive:hover {
+            background-color: #f0f0f0;
+        }
+        .hidden { display: none; }
 
 /* ADVERTISEMENT */
 .ad {

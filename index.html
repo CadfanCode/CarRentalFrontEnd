@@ -6,6 +6,14 @@
     <title>WigellKoncernen</title>
     <link rel="stylesheet" href="stylesheet.css">
     <style>
+        /* ADDED: Styles for interactive rows */
+        .car-row-interactive {
+            cursor: pointer;
+        }
+        .car-row-interactive:hover {
+            background-color: #f0f0f0;
+        }
+        /* Existing style */
         .hidden { display: none; }
     </style>
 </head>
@@ -16,20 +24,13 @@
 </header>
 
 <div class="flex-container">
-    <!-- NAVIGATION AREA -->
     <div class="nav">
-        <ul>
-            <li><a href="#" id="nav-home">Home</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
+        <ul id="nav-list">
+            </ul>
         <button id="logout-btn" style="margin-top: 15px;">Logga ut</button>
     </div>
 
-    <!-- DYNAMIC CONTENT AREA -->
     <div id="dynamic-content-container">
-        <!-- LOGIN DISPLAY -->
         <section id="login-view">
             <h2>Logga in</h2>
             <p>Vänligen logga in för att boka eller hantera bilar.</p>
@@ -41,54 +42,81 @@
             <p id="error-msg" style="color:red;"></p>
         </section>
 
-        <!-- CUSTOMER VIEW -->
-        <section id="car-view" class="hidden">
-            <h2>Tillgängliga Bilar</h2>
-
-            <!-- Sorting controls -->
-            <div id="sorting-controls" style="margin-bottom: 15px;">
-                <label>Sortera på:</label>
-                <button id="sort-name">Namn</button>
-                <button id="sort-type">Typ</button>
-            </div>
-
-            <!-- Dynamic table container -->
-            <table id="car-table" border="1" style="width:100%; border-collapse: collapse;">
+        <section id="bookings-view" class="hidden">
+            <h2>Mina Bokningar</h2>
+            <p>En lista över dina aktuella och tidigare bokningar.</p>
+            <table id="user-bookings">
                 <thead>
                 <tr>
                     <th>Bild</th>
                     <th>Märke/Modell</th>
-                    <th>Typ</th>
                     <th>Pris</th>
-                    <th>Beskrivning</th>
+                    <th>Från</th>
+                    <th>Till</th>
                 </tr>
                 </thead>
-                <tbody id="car-table-body">
-                <!-- Rows will be injected dynamically via JS -->
+                <tbody id="bookings-table-body">
                 </tbody>
             </table>
         </section>
 
+        <section id="car-view" class="hidden">
+            
+            <div id="view-car-list">
+                <h2>Tillgängliga Bilar</h2>
+                <div id="sorting-controls" style="margin-bottom: 15px;">
+                    <label>Sortera på:</label>
+                    <button id="sort-name">Namn</button>
+                    <button id="sort-type">Typ</button>
+                </div>
 
-        <!-- ADMIN VIEW -->
+                <table id="car-table" border="1" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                    <tr>
+                        <th>Bild</th>
+                        <th>Märke/Modell</th>
+                        <th>Typ</th>
+                        <th>Pris</th>
+                        <th>Beskrivning</th>
+                    </tr>
+                    </thead>
+                    <tbody id="car-table-body-interactive">
+                        </tbody>
+                </table>
+            </div>
+            
+            <div id="view-date-picker" class="hidden">
+                <h2 id="date-picker-title">Select Date</h2>
+                <p id="date-picker-prompt"></p>
+                <div style="display: flex; flex-direction: column; max-width: 300px; gap: 10px;">
+                    <input type="date" id="date-input">
+                    <button id="btn-next-date">Nästa</button>
+                    <button onclick="resetBookingProcess()">Avbryt</button>
+                </div>
+            </div>
+
+            <div id="view-summary" class="hidden">
+                <h2>Bekräfta Bokning</h2>
+                <div id="summary-details">
+                    </div>
+                <div class="actions" style="margin-top: 20px;">
+                    <button id="btn-confirm-booking">Bekräfta och Boka</button>
+                    <button onclick="resetBookingProcess()">Avbryt</button>
+                </div>
+            </div>
+
+        </section>
+
+
         <section id="admin-view" class="hidden">
             <h2>Admin Dashboard</h2>
             <p>Hantera fordonsparken.</p>
             <table id="admin-table" border="1" style="width:100%; border-collapse: collapse;">
-                <thead>
-                <tr>
-                    <th id="header-brand" style="cursor:pointer">Märke/Modell ↕</th>
-                    <th id="header-type" style="cursor:pointer">Typ ↕</th>
-                    <th id="header-price">Pris</th>
-                    <th>Åtgärd</th>
-                </tr>
-                </thead>
                 <tbody id="admin-tbody"></tbody>
             </table>
         </section>
     </div>
 
-    <!-- ADVERTISEMENT AREA -->
     <div class="ad">
         <h2>Reklamplats</h2>
         <p>Här kan du lägga in bilder på bilar eller banners.</p>
