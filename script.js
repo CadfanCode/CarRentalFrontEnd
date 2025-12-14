@@ -218,7 +218,8 @@ async function populateBookingsTable(bookings) {
     }
 }
 
-// --- ADMIN BOOKINGS VIEW ---
+// --- ADMIN VIEW ---
+// --- ALL BOOKINGS ---
 async function fetchAndDisplayAllBookings() {
     const auth = localStorage.getItem('auth');
 
@@ -307,6 +308,69 @@ async function populateAdminBookingsTable(bookings) {
     }
 }
 
+// --- ADMIN VIEW ---
+// --- ALL USERS ---
+async function fetchAndDisplayAllUsers(){
+    const auth = localStorage.getItem('auth');
+    try {  
+        const response = await fetch(USERDETAILS_URL, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: { 'Authorization': auth || '' }
+        });
+        if (response.ok) {
+            const users = await response.json();
+            populateAdminUsersTable(users);
+        } else console.error('Failed to fetch users');
+    } catch (error) {
+        console.error('Error fetching users:', error);
+    }
+}
+
+async function populateAdminUsersTable(users) {
+    const tbody = document.getElementById('admin-tbody');
+    tbody.innerHTML = '';
+
+    for (const user of users) {
+        // This is a row for each user
+        const tr = document.createElement('tr');
+
+        const tdId = document.createElement('td');
+        tdId.textContent = user.id;
+        tr.appendChild(tdId);
+
+        const tdUsername = document.createElement('td');
+        tdUsername.textContent = user.username;
+        tr.appendChild(tdUsername);
+        
+        const tdFirstName = document.createElement('td');
+        tdFirstName.textContent = user.firstName;
+        tr.appendChild(tdFirstName);
+
+        const tdLastName = document.createElement('td');
+        tdLastName.textContent = user.lastName;
+        tr.appendChild(tdLastName);
+        
+        const tdPhoneNumber = document.createElement('td');
+        tdPhoneNumber.textContent = user.phoneNumber || 'N/A';
+        tr.appendChild(tdPhoneNumber);
+
+        const tdEmail = document.createElement('td');
+        tdEmail.textContent = user.email || 'N/A';
+        tr.appendChild(tdEmail);
+
+        const tdNoOfOrders = document.createElement('td');
+        tdNoOfOrders.textContent = user.numberOfOrders || 0;
+        tr.appendChild(tdNoOfOrders);
+
+        const tdIsAdmin = document.createElement('td');
+        tdIsAdmin.textContent = user.role && user.role === 'ROLE_ADMIN' ? 'ADMIN' : 'USER'; // A nice ternary usage if I do say so myself!
+        tr.appendChild(tdIsAdmin);
+
+        tbody.appendChild(tr);
+    }
+        
 
 // --- CAR VIEW ---
 async function fetchCars() {
@@ -496,6 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else switchView(carView);
     } else switchView(loginView);
 });
+}
 
 function fetchAdminData() {
     // Defaults to showing bookings when Admin view is first loaded
