@@ -7,19 +7,25 @@
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
+<!-- HEADER SECTION -->
 <header>
-    <h1>WigellKoncernen</h1>
-    <p>Lyxa bilar till låga priser!</p>
+    <img src="images/KoncernLogga.png" alt="Company logo" width= 75px height= 75px>
+    <h1>WigellKoncernen </h1>
+    <p>Lyxbilar till låga priser!</p>
 </header>
 
+<!-- NAVIGATION SECTION -->
 <div class="flex-container">
     <div class="nav">
         <ul id="nav-list">
-            </ul>
+        </ul>
         <button id="logout-btn" style="margin-top: 15px;">Logga ut</button>
     </div>
 
+ <!-- DYNAMIC CONTENT SECTION -->
     <div id="dynamic-content-container">
+
+        <!-- LOGIN -->
         <section id="login-view">
             <h2>Logga in</h2>
             <p>Vänligen logga in för att boka eller hantera bilar.</p>
@@ -31,6 +37,7 @@
             <p id="error-msg" style="color:red;"></p>
         </section>
 
+        <!-- BOOKINGS VIEW (USER) SECTION -->
         <section id="bookings-view" class="hidden">
             <h2>Mina Bokningar</h2>
             <p>En lista över dina aktuella och tidigare bokningar.</p>
@@ -49,8 +56,8 @@
             </table>
         </section>
 
+        <!-- AVAILABLE CAR VIEW (USER) SECTION -->
         <section id="car-view" class="hidden">
-            
             <div id="view-car-list">
                 <h2>Tillgängliga Bilar</h2>
                 <div id="sorting-controls" style="margin-bottom: 15px;">
@@ -59,7 +66,8 @@
                     <button id="sort-type">Typ</button>
                 </div>
 
-                <table id="car-table" border="1" style="width:100%; border-collapse: collapse;">
+
+                <table id="car-table">
                     <thead>
                     <tr>
                         <th>Bild</th>
@@ -67,54 +75,68 @@
                         <th>Typ</th>
                         <th>Pris</th>
                         <th>Beskrivning</th>
+                        <th>Boka</th>
                     </tr>
                     </thead>
                     <tbody id="car-table-body-interactive">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
-            
+
+
             <div id="view-date-picker" class="hidden">
-                <h2 id="date-picker-title">Select Date</h2>
+                <h2 id="date-picker-title">Välj datum</h2>
                 <p id="date-picker-prompt"></p>
                 <div style="display: flex; flex-direction: column; max-width: 300px; gap: 10px;">
                     <input type="date" id="date-input">
                     <button id="btn-next-date">Nästa</button>
-                    <button onclick="resetBookingProcess()">Avbryt</button>
+                    <button onclick="location.reload()">Avbryt</button>
                 </div>
             </div>
+
 
             <div id="view-summary" class="hidden">
                 <h2>Bekräfta Bokning</h2>
                 <div id="summary-details">
-                    </div>
+                </div>
                 <div class="actions" style="margin-top: 20px;">
                     <button id="btn-confirm-booking">Bekräfta och Boka</button>
-                    <button onclick="resetBookingProcess()">Avbryt</button>
+                    <button onclick="location.reload()">Avbryt</button>
                 </div>
             </div>
 
+
         </section>
 
-
+     <!-- ADMIN VIEW SECTION -->
         <section id="admin-view" class="hidden">
-            <h2>Admin Dashboard</h2>
-            <p>Hantera fordonsparken.</p>
-            <table id="admin-table" border="1" style="width:100%; border-collapse: collapse;">
+            <h2 id="admin-title">Admin Dashboard</h2>
+
+
+            <div id="admin-header-actions" style="margin-bottom: 15px;"></div>
+
+
+            <div id="admin-form-container"></div>
+
+
+            <table id="admin-table">
+                <thead id="admin-thead"></thead>
                 <tbody id="admin-tbody"></tbody>
             </table>
         </section>
     </div>
 
+<!-- ADVERTISEMENT SECTION -->
     <div class="ad">
         <h2>Reklamplats</h2>
-        <p>Här kan du lägga in bilder på bilar eller banners.</p>
-        <div style="background-color: #ddd; height: 150px; display: flex; align-items: center; justify-content: center;">
-            [Bildutrymme]
-        </div>
+        <img src="images/Reklam.jpg">
     </div>
 </div>
 
-<script src="script.js"></script>
+
+<!-- JAVASCRIPT ATTACHMENTS -->
+<script src="general.js"></script>
+<script src="admin.js"></script>
+<script src="user.js"></script>
 </body>
 </html>

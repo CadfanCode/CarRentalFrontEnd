@@ -70,6 +70,11 @@ public class CarService {
         existingCar.setFeature2(updatedCar.getFeature2());
         existingCar.setFeature3(updatedCar.getFeature3());
         existingCar.setBooked(updatedCar.isBooked());
+        // This is new code that checks to see if an image is updated car has an image and then sets it.
+        if (updatedCar.getImage() != null && updatedCar.getImage().length > 0) {
+            existingCar.setImage(updatedCar.getImage());
+            logger.info("Updating image for car id={}", existingCar.getId());
+        }
         return carRepo.save(existingCar);
     }
 
@@ -122,4 +127,5 @@ public class CarService {
             throw new RuntimeException("Error uploading file", e);
         }
     }
+
 }
