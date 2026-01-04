@@ -78,7 +78,7 @@ async function fetchCars() {
             headers: { 'Authorization': auth || '' }
         });
         if (response.ok) {
-            availableCars = await response.json(); // Store the data globally in order to sort it later!
+            availableCars = await response.json(); // Store the data globally in order to sort it later
             renderCarTable();
         }
     } catch (error) { console.error(error); }

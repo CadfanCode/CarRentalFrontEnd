@@ -14,24 +14,21 @@ const errorMsg = document.getElementById('error-msg');
 const navList = document.getElementById('nav-list');
 const logoutBtn = document.getElementById('logout-btn');
 
-// --- HELPER: ROUTER ---
+// --- SWITCH VIEW ---
 function switchView(viewElement) {
     const allViews = [loginView, carView, adminView, bookingsView];
-    allViews.forEach(view => { if (view) view.style.display = 'none'; });
+    allViews.forEach(view => {
+        if (view) view.classList.add('hidden');
+    });
 
     if (viewElement) {
-        viewElement.style.display = 'block';
-
-        // Triggers based on view
-        if (viewElement === carView && typeof resetBookingProcess === 'function') {
+        viewElement.classList.remove('hidden');
+        if (viewElement === carView) {
             resetBookingProcess();
-            fetchCars(); // Defined in user.js
+            fetchCars();
         }
-        else if (viewElement === adminView && typeof fetchAdminData === 'function') {
-            fetchAdminData(); // Defined in admin.js
-        }
-        else if (viewElement === bookingsView && typeof fetchBookings === 'function') {
-            fetchBookings(); // Defined in user.js
+        if (viewElement === bookingsView) {
+            fetchBookings();
         }
     }
 }
@@ -72,7 +69,6 @@ function updateNavigation(isAdmin) {
             e.preventDefault();
             const targetViewId = e.target.getAttribute('data-view');
 
-            // Check if it's an admin view request
             if (targetViewId.startsWith('admin-')) {
                 switchView(adminView);
                 if(typeof loadAdminContent === 'function') {

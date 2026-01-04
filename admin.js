@@ -4,11 +4,11 @@ let currentSort = { key: null, direction: 'asc' }; // Tracks sort state
 
 // --- ADMIN VIEW CONTROLLER ---
 function fetchAdminData() {
-    loadAdminContent('admin-bookings');
+    loadAdminContent('admin-bookings'); // <-- admin-bookings becomes the default view for admins upon loading.
 }
 
 function loadAdminContent(contentType) {
-    const existingForm = document.getElementById('admin-form');
+    const existingForm = document.getElementById('admin-form'); // <-- FYI 'admin-form' is created within the renderAdminForm function.
     if(existingForm) existingForm.remove();
     document.getElementById('admin-table').style.display = 'table';
 
@@ -31,14 +31,14 @@ function loadAdminContent(contentType) {
 function handleSort(key, renderFunction) {
     if (currentSort.key === key) {
         // Toggle direction if clicking the same column
-        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc'; // if 'asc' true switch to 'desc' else 'asc'.
     } else {
         // New column, start with ascending
         currentSort.key = key;
         currentSort.direction = 'asc';
     }
 
-    adminTableData.sort((a, b) => {
+    adminTableData.sort((a, b) => { // <-- i.e. rows 'a' and 'b' in the table.
         let valA = a[key];
         let valB = b[key];
 
@@ -46,6 +46,7 @@ function handleSort(key, renderFunction) {
         if (valA === null || valA === undefined) valA = "";
         if (valB === null || valB === undefined) valB = "";
 
+        // Check if the data are numbers or text.
         const isNum = !isNaN(parseFloat(valA)) && !isNaN(parseFloat(valB));
 
         if (isNum) {
@@ -80,9 +81,9 @@ function createSortableHeader(label, key, renderFunction, tr) {
     tr.appendChild(th);
 }
 
-// --- ADMIN GENERIC HELPERS ---
+// --- ADMIN HELPERS ---
 async function deleteItem(url, id, refreshCallback) {
-    if(!confirm('Är du säker på att du vill ta bort denna post?')) return;
+    if(!confirm('Är du säker på att du vill ta bort denna post?')) return; // <-- 'confirm' is an inbuilt browser function returns a boolean depending on the users response.
     const auth = localStorage.getItem('auth');
     try {
         const response = await fetch(`${url}/${id}`, {
@@ -96,7 +97,7 @@ async function deleteItem(url, id, refreshCallback) {
 
  // FORM RENDERER
  function renderAdminForm(fields, initialData, onSubmit, onCancel) {
-    const container = document.getElementById('admin-view'); // Fixed selector to use ID
+    const container = document.getElementById('admin-view');
     const existingForm = document.getElementById('admin-form');
     if(existingForm) existingForm.remove();
 
@@ -104,15 +105,16 @@ async function deleteItem(url, id, refreshCallback) {
     const headerActions = document.getElementById('admin-header-actions');
     if(headerActions) headerActions.style.display = 'none';
 
-    const formWrapper = document.createElement('div');
-    formWrapper.id = 'admin-form';
+    //--- Construct the admin-form and all of it's elements. ---
+    const formWrapper = document.createElement('div'); // <-- Creates a DOM element
+    formWrapper.id = 'admin-form'; // <-- Gives the DOM element an id e.g. 'admin-form'.
     formWrapper.style.padding = '20px';
     formWrapper.style.backgroundColor = '#f4f4f4';
     formWrapper.style.marginTop = '20px';
 
     const title = document.createElement('h3');
     title.textContent = initialData ? 'Redigera Post' : 'Skapa Ny Post';
-    formWrapper.appendChild(title);
+    formWrapper.append(title);
 
     fields.forEach(field => {
         const label = document.createElement('label');
@@ -177,10 +179,10 @@ async function deleteItem(url, id, refreshCallback) {
         if(headerActions) headerActions.style.display = 'block';
     }
 
-    btnContainer.appendChild(saveBtn);
-    btnContainer.appendChild(cancelBtn);
-    formWrapper.appendChild(btnContainer);
-    container.appendChild(formWrapper);
+    btnContainer.append(saveBtn);
+    btnContainer.append(cancelBtn);
+    formWrapper.append(btnContainer);
+    container.append(formWrapper);
  }
 
 // --- ADMIN: BOOKINGS LOGIC ---
